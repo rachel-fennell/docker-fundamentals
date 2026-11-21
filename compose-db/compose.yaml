@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d app"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  migrate:
+    image: flyway/flyway:13
+    environment:
+      FLYWAY_URL: jdbc:postgresql://db:5432/app
+      FLYWAY_USER: app
+      FLYWAY_PASSWORD: ${DB_PASSWORD}
+    command: migrate
+    volumes:
+      - ./migrations:/flyway/sql:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
+  psql:
+    image: postgres:18
+    profiles: [tools]
+    environment:
+      PGPASSWORD: ${DB_PASSWORD}
+    entrypoint: ["psql", "postgresql://app@db:5432/app"]
+
+
+
+
+
+
+volumes:
+  pgdata:

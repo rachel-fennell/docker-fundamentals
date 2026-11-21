@@ -1,0 +1,8 @@
+services:
+  db:
+    environment:
+      POSTGRES_PASSWORD: ${CI_DB_PASSWORD:?Set CI_DB_PASSWORD}
+
+  migrate:
+    environment:
+      FLYWAY_PASSWORD: ${CI_DB_PASSWORD:?Set CI_DB_PASSWORD}
