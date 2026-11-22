@@ -1,0 +1,40 @@
+# compose.yaml
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: tasks
+      POSTGRES_USER: tasks
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+    volumes:
+      - db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tasks -d tasks"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  task-api:
+    build: ./task-api
+    image: task-api:1.0.0
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tasks
+      SPRING_DATASOURCE_USERNAME: tasks
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  task-ui:
+    build: ./task-ui
+    image: task-ui:1.0.0
+    depends_on:
+      - task-api
+    ports:
+      - "8081:8080"
+
+volumes:
+  db-data:
