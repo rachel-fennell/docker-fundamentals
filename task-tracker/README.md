@@ -24,3 +24,10 @@ Add a task through the UI. Tasks persist in the db when the stack is stopped and
 Stop the application
 ```bash
 docker compose down
+
+## Published images
+
+- API: `ghcr.io/rachel-fennell/task-api:1.0.0`  
+  Digest: `sha256:5d5dc0f2ae6354c12d345cea9228cbc0bb8a2a1cb1ae3094b62c8eea85efe155`
+- UI: `ghcr.io/rachel-fennell/task-ui:1.0.0`  
+  Digest: `sha256:af4d1b773a73beafd9dbc80675b218716b1e9f3a81571c3da4e6f6629c2bee21`

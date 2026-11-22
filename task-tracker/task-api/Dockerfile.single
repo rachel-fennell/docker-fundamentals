@@ -1,0 +1,9 @@
+FROM eclipse-temurin:25-jdk
+WORKDIR /app
+COPY gradlew settings.gradle.kts build.gradle.kts ./
+COPY gradle gradle
+RUN ./gradlew dependencies --no-daemon > /dev/null
+COPY src src
+RUN ./gradlew test bootJar --no-daemon
+EXPOSE 8080
+ENTRYPOINT ["sh", "-c", "exec java -XX:MaxRAMPercentage=75 -jar build/libs/*.jar"]
