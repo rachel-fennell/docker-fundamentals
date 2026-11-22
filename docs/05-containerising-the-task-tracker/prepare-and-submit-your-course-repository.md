@@ -51,3 +51,4 @@ rachel@BEL-MC-260924B docker-fundamentals % gitleaks git .
 5:25PM INF no leaks found
 
 ## Observations
+All working correctly when cloned to another repo.
