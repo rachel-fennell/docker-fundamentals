@@ -46,12 +46,5 @@ Both single-stage and multi-stage had 0 for both HIGh and CRITICAL findings.
 
 The test change made docker compose build fail. After restoring it the API image build passed. 
 
-rachel@BEL-MC-260924B docker-fundamentals % docker images --digests ghcr.io/rachel-fennell/task-api:1.0.0
-REPOSITORY                        TAG       DIGEST                                                                    IMAGE ID       
-ghcr.io/rachel-fennell/task-api   1.0.0     sha256:5d5dc0f2ae6354c12d345cea9228cbc0bb8a2a1cb1ae3094b62c8eea85efe155    
-
-rachel@BEL-MC-260924B docker-fundamentals % docker images --digests ghcr.io/rachel-fennell/task-ui:1.0.0
-REPOSITORY                       TAG       DIGEST                                                                    IMAGE ID      
-ghcr.io/rachel-fennell/task-ui   1.0.0     sha256:af4d1b773a73beafd9dbc80675b218716b1e9f3a81571c3da4e6f6629c2bee21
-
 ## Observations
+
